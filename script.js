@@ -2,16 +2,16 @@ console.log("Hello and welcome to RPS!");
 
 function getCpuChoice() {
     let numChoice = Math.floor(Math.random() * 3);
-    let cpuSelection
+    let cpuSelection;
     switch (numChoice) {
         case 0:
-            cpuSelection = "Rock"
+            cpuSelection = "Rock";
             break;
         case 1:
-            cpuSelection = "Paper"
+            cpuSelection = "Paper";
             break;
         case 2:
-            cpuSelection = "Scissors"
+            cpuSelection = "Scissors";
             break;
     }
     return cpuSelection;
@@ -23,42 +23,42 @@ function stringToNumeric(playerSelection, cpuSelection) {
     const choices =  {
         "rock":0, "paper":1, "scissors":2
     };
-    let numericPlayerSelection = choices[playerSelection.toLowerCase()]
-    let numericCpuSelection    = choices[cpuSelection.toLowerCase()]
-    return [numericPlayerSelection, numericCpuSelection]
+    let numericPlayerSelection = choices[playerSelection.toLowerCase()];
+    let numericCpuSelection    = choices[cpuSelection.toLowerCase()];
+    return [numericPlayerSelection, numericCpuSelection];
 }
 
 function playRound(playerSelection, cpuSelection) {
     // let playerPrompt = prompt("Rock/Paper/Scissors")
-    let [numericCpuSelection , numericPlayerSelection] = stringToNumeric(playerSelection, cpuSelection)
-    let result = numericCpuSelection - numericPlayerSelection
+    let [numericCpuSelection , numericPlayerSelection] = stringToNumeric(playerSelection, cpuSelection);
+    let result = numericCpuSelection - numericPlayerSelection;
     // reformat playerSelection to capitalize it
-    playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1)
-    return [playerSelection, cpuSelection, result]
+    playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1);
+    return [playerSelection, cpuSelection, result];
 }
 
 
 function game() {
     // setting up variables
-    let userScore = cpuScore = tries = 0
-    let keepGoing = true
+    let userScore = cpuScore = tries = 0;
+    let keepGoing = true;
 
     while (keepGoing) {
         tries++
-        let playerPick = prompt("Rock/Paper/Scissors?")
+        let playerPick = prompt("Rock/Paper/Scissors?");
         let [player, cpu, result] = playRound(playerPick, getCpuChoice());
 
         if (result == 0) {
-            console.log(`It's a tie. ${player} tie with ${cpu}`)
-        } else if (result == -1 || result == 2) {
-            console.log(`You win. ${player} beats ${cpu}`)
+            console.log(`It's a tie. ${player} tie with ${cpu}`);
+        } else if (result == -1 || result == 2) {;
+            console.log(`You win. ${player} beats ${cpu}`);
             userScore++
         } else  {
-            console.log(`CPU wins. ${cpu} beats ${player}`)
+            console.log(`CPU wins. ${cpu} beats ${player}`);
             cpuScore++
         }
         if (tries>=5) {
-            keepGoing = false
+            keepGoing = false;
         }
     }
     // final tally
