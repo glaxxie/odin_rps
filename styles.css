@@ -1,0 +1,49 @@
+body {
+    background-color: antiquewhite;
+    text-align: center;
+
+}
+#head_title {
+    font-size: 40px;
+    color: rgb(5, 74, 51);
+}
+#text {
+    font-size: 25px;
+    color: brown;
+}
+.image_container {
+    max-width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 2px solid rgb(71, 46, 46);
+    border-radius: 10px;
+    margin: 20px auto;
+    padding: 10px;
+}
+#vs {
+    font-weight: bolder;
+    font-size: 50px;
+}
+img {
+    width: 150px;
+    height: 150px ;
+}
+.scoreboard_container {
+    max-width: 1000px;
+    margin: 20px auto;
+    display: flex;
+    justify-content: space-around;
+    /* padding: auto; */
+}
+#player,#cpu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 50px;
+    width: 50px;
+    height: 75px;
+    border: 2px solid black;
+    /* position: absolute; */
+}

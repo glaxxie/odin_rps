@@ -29,47 +29,64 @@ function stringToNumeric(playerSelection, cpuSelection) {
 }
 
 function playRound(playerSelection, cpuSelection) {
-    // let playerPrompt = prompt("Rock/Paper/Scissors")
-    let [numericCpuSelection , numericPlayerSelection] = stringToNumeric(playerSelection, cpuSelection);
+    let [ numericPlayerSelection, numericCpuSelection] = stringToNumeric(playerSelection, cpuSelection);
     let result = numericCpuSelection - numericPlayerSelection;
     // reformat playerSelection to capitalize it
     playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1);
     return [playerSelection, cpuSelection, result];
 }
 
+const buttons = document.querySelectorAll('button');
+const body = document.querySelector('body');
+const textResult = document.querySelector('#text');
+const playerScore = document.querySelector('#player');
+const cpuScore = document.querySelector('#cpu');
 
-function game() {
-    // setting up variables
-    let userScore = cpuScore = tries = 0;
-    let keepGoing = true;
+let userPoint = cpuPoint = 0;
 
-    while (keepGoing) {
-        tries++
-        let playerPick = prompt("Rock/Paper/Scissors?");
-        let [player, cpu, result] = playRound(playerPick, getCpuChoice());
-
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        let playerChoice = button.id;
+        let [player, cpu, result] = playRound(playerChoice, getCpuChoice());
         if (result == 0) {
-            console.log(`It's a tie. ${player} tie with ${cpu}`);
+            textResult.textContent = `It's a tie. ${player} tie with ${cpu}`;
+            // text = `It's a tie. ${player} tie with ${cpu}`;
         } else if (result == -1 || result == 2) {;
-            console.log(`You win. ${player} beats ${cpu}`);
-            userScore++
+            textResult.textContent = `You win. ${player} beats ${cpu}`;
+            playerScore.textContent = ++userPoint
+            endGame();
         } else  {
-            console.log(`CPU wins. ${cpu} beats ${player}`);
-            cpuScore++
+            textResult.textContent = `CPU wins. ${cpu} beats ${player}`;
+            cpuScore.textContent = ++cpuPoint
+            endGame();
         }
-        if (tries>=5) {
-            keepGoing = false;
-        }
-    }
-    // final tally
-    let finalScore = userScore - cpuScore
-    if (finalScore > 0) {
-        console.log(`User won with result ${userScore}-${cpuScore}`)
-    } else if (finalScore < 0) {
-        console.log(`CPU won with result ${cpuScore}-${userScore}`)
-    } else {
-        console.log(`It is a tie with result ${userScore}-${cpuScore}`)
-    }
-}
+    });
+});
 
-game()
+// end the game
+const finalDiv = document.createElement("div");
+const newGame = document.createElement("button");
+// finalDiv.classList.add('result')
+// newGame.classList.add('newgame_btn')
+newGame.textContent = "New Game"
+function endGame() {
+    if (userPoint == 5 || cpuPoint == 5) {
+        finalDiv.textContent = userPoint == 5 ? "You won!" : "CPU won!";
+        buttons.forEach( (button) => {
+            button.disabled = true;
+        });
+        body.appendChild(finalDiv);
+        body.appendChild(newGame);
+    };
+};
+
+// new game
+newGame.addEventListener('click', () => rePlay());
+function rePlay() {
+    userPoint = cpuPoint = playerScore.textContent = cpuScore.textContent = 0
+    body.removeChild(finalDiv);
+    body.removeChild(newGame);
+    buttons.forEach( (button) => {
+        button.disabled = false
+    });
+}
